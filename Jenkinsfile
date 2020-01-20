@@ -138,11 +138,15 @@ pipeline {
                     // Extract the path from the File found
 
                     artifactPath = filesByGlob[0].path;
-
+					
+					echo artifactPath;
+					
                     // Assign to a boolean response verifying If the artifact name exists
 
                     artifactExists = fileExists artifactPath;
-
+					
+					echo artifactExists;
+						
                     if(artifactExists) {
 
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
@@ -196,7 +200,6 @@ pipeline {
                     }
 
                 }
-
             }
         }	
     }   
