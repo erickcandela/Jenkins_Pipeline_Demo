@@ -132,16 +132,13 @@ pipeline {
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
 
                     // Print some info from the artifact found
-
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
 
                     // Extract the path from the File found
-
                     artifactPath = filesByGlob[0].path;
 					
 					echo "artifactPath: ${artifactPath}";
-					
-                    // Assign to a boolean response verifying If the artifact name exists
+					// Assign to a boolean response verifying If the artifact name exists
 
                     artifactExists = fileExists artifactPath;
 					
@@ -164,7 +161,7 @@ pipeline {
                                 // Artifact generated such as .jar, .ear and .war files.
                                 [artifactId: pom.artifactId,
                                 classifier: '',
-                                file: artifactPath,
+                                file: 'target/' + artifactPath,
                                 type: pom.packaging],
                                 // Lets upload the pom.xml file for additional information for Transitive dependencies
                                 [artifactId: pom.artifactId,
