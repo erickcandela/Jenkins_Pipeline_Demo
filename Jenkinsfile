@@ -123,42 +123,6 @@ pipeline {
 				archive 'target/*.jar'
 			} 
 		} 
-        stage("Compile Stage Publish") {
 
-            steps {
-
-script {
-                    // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
-
-                    pom = readMavenPom file: "pom.xml";
-
-                    // Find built artifact under target folder
-
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-
-                    // Print some info from the artifact found
-
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-
-                    // Extract the path from the File found
-
-                    artifactPath = filesByGlob[0].path;
-
-					echo "${filesByGlob[0].name}"
-					
-nexusPublishernexusInstanceId: 'localNexus', 
-nexusRepositoryId: 'appens', 
-packages: [[$class: 'MavenPackage', 
-mavenAssetList: [[classifier: "123", 
-extension: 'jar', 
-filePath: artifactPath ]], 
-mavenCoordinate: [artifactId: XXX, 
-groupId: 'onp.gob.odm.ruleapp', 
-packaging: 'jar', 
-version: "1.0"]]]
-}
-
-            }
-        }			       
     }   
 }
