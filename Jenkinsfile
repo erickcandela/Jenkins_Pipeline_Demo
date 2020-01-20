@@ -142,7 +142,7 @@ pipeline {
 					echo "${filesByGlob[0].name}"
 					
 					nexusPublishernexusInstanceId: 'localNexus', 
-					nexusRepositoryId: 'appens', 
+					nexusRepositoryId: 'NEXUS_CONFIG', 
 					packages: [[$class: 'MavenPackage', 
 					mavenAssetList: [[classifier: "123", 
 					extension: 'jar', 
