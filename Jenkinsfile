@@ -137,12 +137,16 @@ pipeline {
 
                     // Extract the path from the File found
 
-                    echo artifactPath = filesByGlob[0].path;
+                    artifactPath = filesByGlob[0].path;
+					
+					echo "artifactPath: ${artifactPath}";
 					
                     // Assign to a boolean response verifying If the artifact name exists
 
-                    echo artifactExists = fileExists artifactPath;
-						
+                    artifactExists = fileExists artifactPath;
+					
+					echo "artifactExists: ${artifactExists}";
+					
                     if(artifactExists) {
 
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
