@@ -91,8 +91,6 @@ pipeline {
 				}
 		    }        	
         }
-        stage('Compile Stage Publish') {
-     		nexusPublisher nexusInstanceId: 'localNexus', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'war/target/jenkins-pipeline-demo.war']], mavenCoordinate: [artifactId: 'jenkins-pipeline-demo-war', groupId: 'org.jenkins-ci.main', packaging: 'war', version: '1.1']]]
-       }
+
     }   
 }
