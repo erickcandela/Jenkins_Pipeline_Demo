@@ -22,13 +22,11 @@ pipeline {
 
         // Repository where we will upload the artifact
 
-        NEXUS_REPOSITORY = "repository-example"
+        NEXUS_REPOSITORY = "NEXUS_CONFIG"
 
         // Jenkins credential id to authenticate to Nexus OSS
 
-        NEXUS_CREDENTIAL_ID = "nexus-credentials"  
-        
-        TMP_PATH_RULEAPPSVER="${env.WORKSPACE}/RULEAPPSVER"      
+        NEXUS_CREDENTIAL_ID = "localNexus"       
     }
          
     stages {
@@ -120,9 +118,11 @@ pipeline {
 			} 
 		} 
         stage("Compile Stage Publish") {
+
             steps {
 
-				script {
+                script {
+
                     // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
 
                     pom = readMavenPom file: "pom.xml";
@@ -139,20 +139,65 @@ pipeline {
 
                     artifactPath = filesByGlob[0].path;
 
-					echo "${filesByGlob[0].name}"
-					
-					nexusPublishernexusInstanceId: 'localNexus', 
-					nexusRepositoryId: 'NEXUS_CONFIG', 
-					packages: [[$class: 'MavenPackage', 
-					mavenAssetList: [[classifier: "123", 
-					extension: 'jar', 
-					filePath: artifactPath ]], 
-					mavenCoordinate: [artifactId: XXX, 
-					groupId: 'onp.gob.odm.ruleapp', 
-					packaging: 'jar', 
-					version: "1.0"]]]
-				}
+                    // Assign to a boolean response verifying If the artifact name exists
+
+                    artifactExists = fileExists artifactPath;
+
+                    if(artifactExists) {
+
+                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+
+                        nexusArtifactUploader (
+
+                            nexusVersion: NEXUS_VERSION,
+
+                            protocol: NEXUS_PROTOCOL,
+
+                            nexusUrl: NEXUS_URL,
+
+                            groupId: pom.groupId,
+
+                            version: pom.version,
+
+                            repository: NEXUS_REPOSITORY,
+
+                            credentialsId: NEXUS_CREDENTIAL_ID,
+
+                            artifacts: [
+
+                                // Artifact generated such as .jar, .ear and .war files.
+
+                                [artifactId: pom.artifactId,
+
+                                classifier: '',
+
+                                file: artifactPath,
+
+                                type: pom.packaging],
+
+                                // Lets upload the pom.xml file for additional information for Transitive dependencies
+
+                                [artifactId: pom.artifactId,
+
+                                classifier: '',
+
+                                file: "pom.xml",
+
+                                type: "pom"]
+
+                            ]
+
+                        );
+
+                    } else {
+
+                        error "*** File: ${artifactPath}, could not be found";
+
+                    }
+
+                }
+
             }
-        }
+        }	
     }   
 }
