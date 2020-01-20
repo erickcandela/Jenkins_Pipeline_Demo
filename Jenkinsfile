@@ -149,7 +149,7 @@ pipeline {
 					
                     if(artifactExists) {
 
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+                        echo "*** File Begin: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
 
                         nexusArtifactUploader (
 
@@ -192,6 +192,8 @@ pipeline {
                             ]
 
                         );
+                        
+                        echo "*** File End";
 
                     } else {
 
