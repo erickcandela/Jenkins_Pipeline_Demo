@@ -26,7 +26,7 @@ pipeline {
 
         // Jenkins credential id to authenticate to Nexus OSS
 
-        NEXUS_CREDENTIAL_ID = "localNexus"       
+        NEXUS_CREDENTIAL_ID = "7e3feb4a-d9aa-40e1-8008-4cbf81e6b20b"       
     }
          
     stages {
@@ -154,39 +154,22 @@ pipeline {
                         nexusArtifactUploader (
 
                             nexusVersion: NEXUS_VERSION,
-
                             protocol: NEXUS_PROTOCOL,
-
                             nexusUrl: NEXUS_URL,
-
                             groupId: pom.groupId,
-
                             version: pom.version,
-
                             repository: NEXUS_REPOSITORY,
-
                             credentialsId: NEXUS_CREDENTIAL_ID,
-
                             artifacts: [
-
                                 // Artifact generated such as .jar, .ear and .war files.
-
                                 [artifactId: pom.artifactId,
-
                                 classifier: '',
-
                                 file: artifactPath,
-
                                 type: pom.packaging],
-
                                 // Lets upload the pom.xml file for additional information for Transitive dependencies
-
                                 [artifactId: pom.artifactId,
-
                                 classifier: '',
-
                                 file: "pom.xml",
-
                                 type: "pom"]
 
                             ]
