@@ -137,15 +137,11 @@ pipeline {
 
                     // Extract the path from the File found
 
-                    artifactPath = filesByGlob[0].path;
-					
-					echo artifactPath;
+                    echo artifactPath = filesByGlob[0].path;
 					
                     // Assign to a boolean response verifying If the artifact name exists
 
-                    artifactExists = fileExists artifactPath;
-					
-					echo artifactExists;
+                    echo artifactExists = fileExists artifactPath;
 						
                     if(artifactExists) {
 
