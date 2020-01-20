@@ -163,7 +163,7 @@ pipeline {
 
                             version: pom.version,
 
-                            repository: NEXUS_CONFIG,
+                            repository: NEXUS_REPOSITORY,
 
                             credentialsId: NEXUS_CREDENTIAL_ID,
 
