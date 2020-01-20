@@ -90,6 +90,9 @@ pipeline {
 					subject: 'Jenkins build is back to normal: $PROJECT_NAME - #$BUILD_NUMBER'
 				}
 		    }        	
-        }		
+        }
+        stage('Compile Stage Publish') {
+     		nexusPublisher nexusInstanceId: 'localNexus', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'war/target/jenkins.war']], mavenCoordinate: [artifactId: 'jenkins-war', groupId: 'org.jenkins-ci.main', packaging: 'war', version: '1.1']]]
+       }
     }   
 }
