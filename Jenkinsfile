@@ -141,7 +141,7 @@ pipeline {
 
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
 
-                        nexusArtifactUploader(
+                        nexusArtifactUploader (
 
                             nexusVersion: NEXUS_VERSION,
 
