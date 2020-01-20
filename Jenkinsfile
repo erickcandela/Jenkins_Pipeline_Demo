@@ -1,3 +1,7 @@
+#!/bin/envgroovy
+
+importgroovy.json.JsonSlurper;
+
 pipeline {
     agent any
 	tools {
