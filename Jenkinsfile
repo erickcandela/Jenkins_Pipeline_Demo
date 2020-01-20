@@ -18,7 +18,7 @@ pipeline {
 
         // Where your Nexus is running
 
-        NEXUS_URL = "localhost:8081"
+        NEXUS_URL = "127.0.0.1:8081"
 
         // Repository where we will upload the artifact
 
