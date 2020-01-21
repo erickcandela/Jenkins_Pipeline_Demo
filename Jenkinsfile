@@ -124,32 +124,25 @@ pipeline {
                 script {
 
                     // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
-
-                    pom = readMavenPom file: "pom.xml";
+					pom = readMavenPom file: "pom.xml";
 
                     // Find built artifact under target folder
-
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
 
                     // Print some info from the artifact found
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+                    echo "${filesByGlob[0].name}; ${filesByGlob[0].path}; ${filesByGlob[0].directory}; ${filesByGlob[0].length}; ${filesByGlob[0].lastModified}"
 
                     // Extract the path from the File found
-                    artifactPath = filesByGlob[0].path;
-					
+                    artifactPath = filesByGlob[0].path;					
 					echo "artifactPath: ${artifactPath}";
-					// Assign to a boolean response verifying If the artifact name exists
-
-                    artifactExists = fileExists artifactPath;
 					
+					// Assign to a boolean response verifying If the artifact name exists
+                    artifactExists = fileExists artifactPath;					
 					echo "artifactExists: ${artifactExists}";
 					
                     if(artifactExists) {
-
                         echo "*** File Begin: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-
                         nexusArtifactUploader (
-
                             nexusVersion: NEXUS_VERSION,
                             protocol: NEXUS_PROTOCOL,
                             nexusUrl: NEXUS_URL,
@@ -161,24 +154,18 @@ pipeline {
                                 // Artifact generated such as .jar, .ear and .war files.
                                 [artifactId: pom.artifactId,
                                 classifier: '',
-                                file: 'target/' + artifactPath,
+                                file: artifactPath,
                                 type: pom.packaging],
                                 // Lets upload the pom.xml file for additional information for Transitive dependencies
                                 [artifactId: pom.artifactId,
                                 classifier: '',
                                 file: "pom.xml",
                                 type: "pom"]
-
                             ]
-
-                        );
-                        
+                        );                        
                         echo "*** File End";
-
                     } else {
-
                         error "*** File: ${artifactPath}, could not be found";
-
                     }
 
                 }
