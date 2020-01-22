@@ -58,8 +58,10 @@ pipeline {
 		    }        	
         }
 		stage('Compile Stage SonarQube') {
-			withSonarQubeEnv(credentialsId: 'Yfm94DjYv3lTWTsxqNSIiA==', installationName: 'My SonarQube Server') { // You can override the credential to be used
-      			sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
+			steps { 
+				withSonarQubeEnv(credentialsId: 'Yfm94DjYv3lTWTsxqNSIiA==', installationName: 'My SonarQube Server') { // You can override the credential to be used
+	      			sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
+				}
 			}
 		}        
         stage ('Compile Stage Test') {
