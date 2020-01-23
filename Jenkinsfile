@@ -60,10 +60,7 @@ pipeline {
 		stage('Compile Stage SonarQube') {
 			steps { 
 				withSonarQubeEnv('SERVER_SONARQUBE') {
-	      			sh 'mvn sonar:sonar \
-  -Dsonar.projectKey=project-key-01 \
-  -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=d2cfa9e5850e20c71fe5c102fb541b09e588f193'
+	      			sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
 				}
 			}
 		}                
