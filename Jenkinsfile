@@ -59,8 +59,8 @@ pipeline {
         }
 		stage('Compile Stage SonarQube') {
 			steps { 
-				withSonarQubeEnv(credentialsId: '90c37d4c043ef05506f720508587a7e50715639c', installationName: 'SERVER_SONARQUBE') { // You can override the credential to be used
-	      			sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
+				withSonarQubeEnv('SERVER_SONARQUBE') {
+	      			sh 'mvn clean package sonar:sonar'
 				}
 			}
 		}                
