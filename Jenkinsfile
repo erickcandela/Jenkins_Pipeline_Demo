@@ -59,8 +59,8 @@ pipeline {
         }
 		stage('Compile Stage SonarQube') {
 			steps { 
-				withSonarQubeEnv('SERVER_SONARQUBE') {
-	      			sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=4382fffccbc74955be5f1ff344901eae7f338470'
+				withSonarQubeEnv(credentialsId: '4382fffccbc74955be5f1ff344901eae7f338470', installationName: 'SERVER_SONARQUBE') {
+	      			sh 'mvn clean package sonar:sonar'
 				}
 			}
 		}                
