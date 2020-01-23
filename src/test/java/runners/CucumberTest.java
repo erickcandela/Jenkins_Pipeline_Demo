@@ -11,7 +11,7 @@ import io.cucumber.testng.CucumberOptions;
 public class CucumberTest extends AbstractTestNGCucumberParallelTests  {
 	
 	private static long duration;
-	
+	private static long precio;
 	@BeforeClass
 	public static void before() {
 		duration = System.currentTimeMillis();
