@@ -59,7 +59,7 @@ pipeline {
         }
 		stage('Compile Stage SonarQube') {
 			steps { 
-				withSonarQubeEnv(credentialsId: '4382fffccbc74955be5f1ff344901eae7f338470', installationName: 'SERVER_SONARQUBE') {
+				withSonarQubeEnv(credentialsId: 'token-sonar-01', installationName: 'SERVER_SONARQUBE') {
 	      			sh 'mvn clean package sonar:sonar'
 				}
 			}
