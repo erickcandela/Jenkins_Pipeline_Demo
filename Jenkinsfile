@@ -58,7 +58,7 @@ pipeline {
 		    }        	
         }
 		stage('Compile Stage SonarQube') {
-			node { 
+			steps { 
 				withSonarQubeEnv('SERVER_SONARQUBE') {
 	      			sh 'mvn sonar:sonar \
   -Dsonar.projectKey=project-key-01 \
