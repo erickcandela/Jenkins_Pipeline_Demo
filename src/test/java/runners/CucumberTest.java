@@ -16,6 +16,7 @@ public class CucumberTest extends AbstractTestNGCucumberParallelTests  {
 	public static void before() {
 		duration = System.currentTimeMillis();
 		System.out.println("Thread Id  | Scenario Num       | Step Count");
+		System.out.println("El proyecto fue creado el día " + 23);
 	}
 	
 	@AfterClass
